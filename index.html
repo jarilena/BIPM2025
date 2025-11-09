@@ -16,26 +16,73 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
     <style>
+        html {
+            scroll-behavior: smooth; /* Sorgt für sanftes Scrollen bei Menü-Klicks */
+        }
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            background-color: #f9f9f9; /* Heller Hintergrund */
-            color: #333; /* Dunkle Schrift */
+            background-color: #f9f9f9; 
+            color: #333; 
             margin: 0;
             padding: 0;
+            padding-top: 60px; /* Platz für die fixe Navigationsleiste */
         }
+        
+        /* 5. Navigations-Menü */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background: #ffffff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: right;
+            z-index: 1000;
+        }
+        .nav-menu ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: inline-block;
+        }
+        .nav-menu li {
+            display: inline-block;
+            margin-left: 25px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #2B2C7C; /* 2. Neue Farbe (Blau) */
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .nav-menu a:hover {
+            color: #D1BC8A; /* 2. Neue Farbe (Gold) */
+        }
+        
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
             padding: 20px 0;
         }
-        /* Header-Styling mit neuem Farbakzent */
+        
+        /* Header (About) Styling */
         header {
-            background: #2E8B57; /* Akzentfarbe: Seegrün */
+            background: #2B2C7C; /* 2. Neue Farbe (Blau) */
             color: #fff;
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
+        }
+        /* 3. Rundes Profilbild */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Macht das Bild kreisrund */
+            border: 4px solid #D1BC8A; /* 2. Neue Farbe (Gold) */
+            object-fit: cover; /* Verhindert Verzerrung */
+            margin-bottom: 20px;
         }
         header h1 {
             margin: 0;
@@ -44,40 +91,60 @@
         header p {
             font-size: 1.2em;
             margin: 5px 0 0;
+            color: #f0f0f0;
         }
-        header a {
-            color: #fff;
+        /* 1. Icon-Links (LinkedIn & GitHub) */
+        .social-links {
+            margin-top: 15px;
+        }
+        .social-links a {
+            color: #D1BC8A; /* 2. Neue Farbe (Gold) */
+            font-size: 2em; /* Macht Icons größer */
+            margin: 0 15px;
             text-decoration: none;
-            font-weight: bold;
         }
-        header a:hover {
-            text-decoration: underline;
+        .social-links a:hover {
+            color: #fff;
         }
+        
         /* Styling für die einzelnen Abschnitte */
         section {
-            padding: 20px;
+            padding: 30px 20px;
             margin: 20px 0;
-            background: #fff; /* Weißer Hintergrund für Abschnitte */
+            background: #fff; 
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         h2 {
-            color: #2E8B57; /* Akzentfarbe für Überschriften */
-            border-bottom: 2px solid #f4f4f4;
+            color: #2B2C7C; /* 2. Neue Farbe (Blau) */
+            border-bottom: 3px solid #D1BC8A; /* 2. Neue Farbe (Gold) */
             padding-bottom: 10px;
+            margin-top: 0;
         }
-        /* Styling für die Bildergalerie */
-        .gallery {
+        
+        /* 4. Hobby-Boxen */
+        .hobby-container {
             display: flex;
-            justify-content: space-around;
             flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
         }
-        .gallery img {
-            width: 45%;
+        .hobby-box {
+            width: 200px; /* Feste Breite für die Boxen */
+            border: 2px solid #D1BC8A; /* 2. Neue Farbe (Gold) */
+            border-radius: 8px;
+            padding: 20px;
             margin: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background: #fdfdfd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
         }
+        .hobby-box h3 {
+            color: #2B2C7C; /* 2. Neue Farbe (Blau) */
+            margin: 0;
+            font-size: 1.2em;
+        }
+        
         /* Styling für die Tabelle (deine Stationen) */
         table {
             width: 100%;
@@ -90,27 +157,28 @@
             text-align: left;
         }
         th {
-            background-color: #2E8B57; /* Akzentfarbe für Tabellenkopf */
+            background-color: #2B2C7C; /* 2. Neue Farbe (Blau) */
             color: white;
         }
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+        
         /* Styling für den Karten-Container */
         #map_container {
             width: 100%;
-            height: 500px; /* Höhe der Karte */
+            height: 500px; 
             border-radius: 8px;
-            overflow: hidden; /* Stellt sicher, dass die Karte in den abgerundeten Ecken bleibt */
+            overflow: hidden; 
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
         html, body {
+            /* Diese Body-Definition wird von der oberen überschrieben, 
+               aber 'width' und 'height' sind für die Karte wichtig */
             width: 100%;
             height: 100%;
-            margin: 0;
-            padding: 0;
         }
         .leaflet-container {
             font-size: 1rem;
@@ -120,22 +188,36 @@
 
 <body>
 
-    <header>
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+            <li><a href="#journey">Journey</a></li>
+        </ul>
+    </nav>
+
+    <header id="about">
+        <img src="J-H-1.png" alt="Jarilena Hennig" class="profile-pic">
+        
         <h1>Hallo von Jarilena!</h1>
         <p>Jarilena Hennig</p>
         <p>Student @HWR Berlin | Consulting @BearingPoint</p>
-        <p>
-            <a href="https://www.linkedin.com/in/jarilena-hennig" target="_blank">LinkedIn</a> | 
-            <a href="https://jarilena.github.io/BIPM2025/" target="_blank">GitHub Projects</a>
-        </p>
+        
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/jarilena-hennig" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://jarilena.github.io/BIPM2025/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
     </header>
     <div class="container">
 
-        <section id="bilder">
-            <h2>Bilder von mir</h2>
-            <div class="gallery">
-                <img src="J-H-1.png" alt="Bild von mir 1" />
-                <img src="J-H-2.png" alt="Bild von mir 2" />
+        <section id="hobbies">
+            <h2>Hobbies</h2>
+            <div class="hobby-container">
+                <div class="hobby-box"><h3>Gym</h3></div>
+                <div class="hobby-box"><h3>Reading</h3></div>
+                <div class="hobby-box"><h3>Pilates & Yoga</h3></div>
+                <div class="hobby-box"><h3>Travel</h3></div>
+                <div class="hobby-box"><h3>Snowboarden</h3></div>
             </div>
         </section>
         <section id="stationen">
@@ -182,8 +264,8 @@
                 </tbody>
             </table>
         </section>
-        <section id="karte">
-            <h2>Interaktive Karte</h2>
+        <section id="journey">
+            <h2>Interaktive Journey</h2>
             <div id="map_container">
                 <div class="folium-map" id="map_b98280c53fd42d586a09191842c709cb" style="width: 100%; height: 100%;"></div>
             </div>
@@ -227,7 +309,7 @@
                 "extraClasses": "fa-rotate-0",
                 "icon": "info-sign",
                 "iconColor": "white",
-                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "markerColor": "darkblue", // 2. GEÄNDERT: Farbe
                 "prefix": "glyphicon"
             });
             marker_2de7687c5cbe4d51e54460c62ef58f72.setIcon(icon_29e0b48c57862dee00ef782fa39276b2);
@@ -248,7 +330,7 @@
                 "extraClasses": "fa-rotate-0",
                 "icon": "info-sign",
                 "iconColor": "white",
-                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "markerColor": "darkblue", // 2. GEÄNDERT: Farbe
                 "prefix": "glyphicon"
             });
             marker_e19b89c834a87cbd3dcb46165a96e3e3.setIcon(icon_02096ddd5cbe492b7072b26a1a22d048);
@@ -269,7 +351,7 @@
                 "extraClasses": "fa-rotate-0",
                 "icon": "info-sign",
                 "iconColor": "white",
-                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "markerColor": "darkblue", // 2. GEÄNDERT: Farbe
                 "prefix": "glyphicon"
             });
             marker_728fea22d70c52b3126d9d88b2542789.setIcon(icon_a2863e89a0c759779b5cd0ece7f2bcf7);
@@ -290,7 +372,7 @@
                 "extraClasses": "fa-rotate-0",
                 "icon": "info-sign",
                 "iconColor": "white",
-                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "markerColor": "darkblue", // 2. GEÄNDERT: Farbe
                 "prefix": "glyphicon"
             });
             marker_7e911c1d6fd83aada1c06d88931427e3.setIcon(icon_5b3ffba1e7d43205009291bc768ea5b4);
@@ -311,7 +393,7 @@
                 "extraClasses": "fa-rotate-0",
                 "icon": "info-sign",
                 "iconColor": "white",
-                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "markerColor": "darkblue", // 2. GEÄNDERT: Farbe
                 "prefix": "glyphicon"
             });
             marker_926c4105cdc0f47d4f72dc6d04ac906f.setIcon(icon_06a0ec54bad86a7c85026c3a52c7d3f3);
@@ -322,6 +404,30 @@
             marker_926c4105cdc0f47d4f72dc6d04ac906f.bindPopup(popup_53664c8084d234e58cc1b86a54f101d0);
             
             marker_926c4105cdc0f47d4f72dc6d04ac906f.bindTooltip(`<div>Berlin, Germany</div>`, {"sticky": true});
+            
+            
+            // --- 6. HINZUGEFÜGT: Verbindungslinien ---
+            var stopsCoords = [
+                [49.488888, 8.469167], // Mannheim
+                [22.572645, 88.363892], // Kolkata
+                [52.391842, 13.063561], // Potsdam
+                [51.0538286, 3.7250121], // Ghent
+                [52.52, 13.405]         // Berlin
+            ];
+
+            // Schleife, die Linien zwischen den Stopps zeichnet
+            for (var i = 0; i < stopsCoords.length - 1; i++) {
+                var start = stopsCoords[i];
+                var end = stopsCoords[i+1];
+                
+                L.polyline([start, end], {
+                    color: '#2B2C7C', // 2. Neue Farbe (Blau)
+                    weight: 3,
+                    opacity: 0.7
+                }).addTo(map_b98280c53fd42d586a09191842c709cb);
+            }
+            // --- Ende der Linien ---
+
         })();
     </script>
     </body>
