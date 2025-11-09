@@ -1,48 +1,10 @@
 <!DOCTYPE html>
-<html>
-  <head><title>Meine Seite</title></head>
-  <body><h1>Hallo von Jarilena!</h1></body>
-</html>
-
-<!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarilena Hennig - Persönliche Website</title>
 
-<head><title>Current Position</title></head>
-<body><h1>Jarilena Hennig
-
-Student @HWR Berlin
-
-Consulting @BearingPoint
-
-www.linkedin.com/in/jarilena-hennig
-
-https://jarilena.github.io/BIPM2025/
-</h1></body>
-
- <head><title>Myself in Pictures</title></head>
-
-<img src="/Users/jarilena/Documents/Wichtige Unterlagen Master/J-H-1.png" alt="Myself 1" width="400"/>
-
-<img src="/Users/jarilena/Documents/Wichtige Unterlagen Master/J-H-2.png"" alt="Myself 2" width="400"/>
-
-
-<head><title>🎓 Stops Along the Way</title></head>
- <body><h1>
-| Period   | Location              | Role                            |
-| :------- | :-------------------- | :------------------------------ |
-| Until 2019  | Mannheim, Germany      | Highschool          |
-| 2020 | India |      Travels in my Gap Year            |
-| 2020-2024 | Potsdam, Germany        | B.Sc. Business Administration & Sociology                     |
-| 2022-2023 | Gent, Belgium        | Bachelor Semester abroad |
-| Since 2023 | Berlin, Germany| Business Analyst IT-Consulting @BearingPoint    |
-| Since 2025 | Berlin, Germany       |  M.Sc. BI & Pr.Mng. |
-</h1></body>
-
-<html>
-<head>
-   
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -53,428 +15,314 @@ https://jarilena.github.io/BIPM2025/
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
-    
-            <meta name="viewport" content="width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            <style>
-                #map_b98280c53fd42d586a09191842c709cb {
-                    position: relative;
-                    width: 100.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-
-            <style>html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            </style>
-
-            <style>#map {
-                position:absolute;
-                top:0;
-                bottom:0;
-                right:0;
-                left:0;
-                }
-            </style>
-
-            <script>
-                L_NO_TOUCH = false;
-                L_DISABLE_3D = false;
-            </script>
-
-        
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9; /* Heller Hintergrund */
+            color: #333; /* Dunkle Schrift */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        /* Header-Styling mit neuem Farbakzent */
+        header {
+            background: #2E8B57; /* Akzentfarbe: Seegrün */
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            font-size: 1.2em;
+            margin: 5px 0 0;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+        /* Styling für die einzelnen Abschnitte */
+        section {
+            padding: 20px;
+            margin: 20px 0;
+            background: #fff; /* Weißer Hintergrund für Abschnitte */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2E8B57; /* Akzentfarbe für Überschriften */
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px;
+        }
+        /* Styling für die Bildergalerie */
+        .gallery {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .gallery img {
+            width: 45%;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        /* Styling für die Tabelle (deine Stationen) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2E8B57; /* Akzentfarbe für Tabellenkopf */
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Styling für den Karten-Container */
+        #map_container {
+            width: 100%;
+            height: 500px; /* Höhe der Karte */
+            border-radius: 8px;
+            overflow: hidden; /* Stellt sicher, dass die Karte in den abgerundeten Ecken bleibt */
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .leaflet-container {
+            font-size: 1rem;
+        }
+    </style>
 </head>
+
 <body>
-    
-    
-            <div class="folium-map" id="map_b98280c53fd42d586a09191842c709cb" ></div>
-        
-</body>
-<script>
-    
-    
+
+    <header>
+        <h1>Hallo von Jarilena!</h1>
+        <p>Jarilena Hennig</p>
+        <p>Student @HWR Berlin | Consulting @BearingPoint</p>
+        <p>
+            <a href="https://www.linkedin.com/in/jarilena-hennig" target="_blank">LinkedIn</a> | 
+            <a href="https://jarilena.github.io/BIPM2025/" target="_blank">GitHub Projects</a>
+        </p>
+    </header>
+    <div class="container">
+
+        <section id="bilder">
+            <h2>Bilder von mir</h2>
+            <div class="gallery">
+                <img src="images/J-H-1.png" alt="Bild von mir 1" />
+                <img src="images/J-H-2.png" alt="Bild von mir 2" />
+            </div>
+        </section>
+        <section id="stationen">
+            <h2>🎓 Stationen auf meinem Weg</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Zeitraum</th>
+                        <th>Ort</th>
+                        <th>Rolle / Tätigkeit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bis 2019</td>
+                        <td>Mannheim, Germany</td>
+                        <td>Highschool</td>
+                    </tr>
+                    <tr>
+                        <td>2020</td>
+                        <td>India</td>
+                        <td>Travels in my Gap Year</td>
+                    </tr>
+                    <tr>
+                        <td>2020-2024</td>
+                        <td>Potsdam, Germany</td>
+                        <td>B.Sc. Business Administration & Sociology</td>
+                    </tr>
+                    <tr>
+                        <td>2022-2023</td>
+                        <td>Gent, Belgium</td>
+                        <td>Bachelor Semester abroad</td>
+                    </tr>
+                    <tr>
+                        <td>Seit 2023</td>
+                        <td>Berlin, Germany</td>
+                        <td>Business Analyst IT-Consulting @BearingPoint</td>
+                    </tr>
+                    <tr>
+                        <td>Seit 2025</td>
+                        <td>Berlin, Germany</td>
+                        <td>M.Sc. BI & Pr.Mng.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="karte">
+            <h2>Interaktive Karte</h2>
+            <div id="map_container">
+                <div class="folium-map" id="map_b98280c53fd42d586a09191842c709cb" style="width: 100%; height: 100%;"></div>
+            </div>
+        </section>
+        </div> <script>
+        (function() {
+            // Map-Initialisierung
             var map_b98280c53fd42d586a09191842c709cb = L.map(
                 "map_b98280c53fd42d586a09191842c709cb",
                 {
                     center: [40.0, 0.0],
                     crs: L.CRS.EPSG3857,
-                    ...{
-  "zoom": 2.3,
-  "zoomControl": true,
-  "preferCanvas": false,
-}
-
+                    zoom: 2.3,
+                    zoomControl: true,
+                    preferCanvas: false,
                 }
             );
 
-            
-
-        
-    
+            // Karten-Layer (Hintergrund)
             var tile_layer_35e9ba0ffccdacfc1e338008530fb772 = L.tileLayer(
                 "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
                 {
-  "minZoom": 0,
-  "maxZoom": 18,
-  "maxNativeZoom": 18,
-  "noWrap": false,
-  "attribution": "\u00a9 OpenStreetMap contributors \u00a9 CARTO",
-  "subdomains": "abc",
-  "detectRetina": false,
-  "tms": false,
-  "opacity": 1,
-}
+                    "attribution": "\u00a9 OpenStreetMap contributors \u00a9 CARTO",
+                    "detectRetina": false,
+                    "maxNativeZoom": 18,
+                    "maxZoom": 18,
+                    "minZoom": 0,
+                    "noWrap": false,
+                    "opacity": 1,
+                    "subdomains": "abc",
+                    "tms": false
+                }
+            ).addTo(map_b98280c53fd42d586a09191842c709cb);
 
-            );
-        
-    
-            tile_layer_35e9ba0ffccdacfc1e338008530fb772.addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
+            // --- Marker 1: Mannheim ---
             var marker_2de7687c5cbe4d51e54460c62ef58f72 = L.marker(
-                [49.488888, 8.469167],
-                {
-}
+                [49.488888, 8.469167], {}
             ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var icon_29e0b48c57862dee00ef782fa39276b2 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_f694c5c0bfbfacde2c7dafdd94296bd5 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
             
-                var html_fbea02c740f69224e988a48674d1b5fc = $(`<div id="html_fbea02c740f69224e988a48674d1b5fc" style="width: 100.0%; height: 100.0%;">Born-Highschool (2001-2019) 🎓</div>`)[0];
-                popup_f694c5c0bfbfacde2c7dafdd94296bd5.setContent(html_fbea02c740f69224e988a48674d1b5fc);
+            var icon_29e0b48c57862dee00ef782fa39276b2 = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0",
+                "icon": "info-sign",
+                "iconColor": "white",
+                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "prefix": "glyphicon"
+            });
+            marker_2de7687c5cbe4d51e54460c62ef58f72.setIcon(icon_29e0b48c57862dee00ef782fa39276b2);
             
-        
-
-        marker_2de7687c5cbe4d51e54460c62ef58f72.bindPopup(popup_f694c5c0bfbfacde2c7dafdd94296bd5)
-        ;
-
-        
-    
-    
-            marker_2de7687c5cbe4d51e54460c62ef58f72.bindTooltip(
-                `<div>
-                     Mannheim, Germany
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_2de7687c5cbe4d51e54460c62ef58f72.setIcon(icon_29e0b48c57862dee00ef782fa39276b2);
+            var popup_f694c5c0bfbfacde2c7dafdd94296bd5 = L.popup({"maxWidth": "100%"});
+            var html_fbea02c740f69224e988a48674d1b5fc = $(`<div id="html_fbea02c740f69224e988a48674d1b5fc" style="width: 100.0%; height: 100.0%;">Born-Highschool (2001-2019) 🎓</div>`)[0];
+            popup_f694c5c0bfbfacde2c7dafdd94296bd5.setContent(html_fbea02c740f69224e988a48674d1b5fc);
+            marker_2de7687c5cbe4d51e54460c62ef58f72.bindPopup(popup_f694c5c0bfbfacde2c7dafdd94296bd5);
             
-    
+            marker_2de7687c5cbe4d51e54460c62ef58f72.bindTooltip(`<div>Mannheim, Germany</div>`, {"sticky": true});
+
+            // --- Marker 2: Kolkata, India ---
             var marker_e19b89c834a87cbd3dcb46165a96e3e3 = L.marker(
-                [22.572645, 88.363892],
-                {
-}
+                [22.572645, 88.363892], {}
             ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var icon_02096ddd5cbe492b7072b26a1a22d048 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_e9109ce9f2a1abd3ab187661c44b4b69 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
             
-                var html_be566ae405aa637aa9353c9827bf6b82 = $(`<div id="html_be566ae405aa637aa9353c9827bf6b82" style="width: 100.0%; height: 100.0%;">Travels in my Gap Year (2020) 💼</div>`)[0];
-                popup_e9109ce9f2a1abd3ab187661c44b4b69.setContent(html_be566ae405aa637aa9353c9827bf6b82);
+            var icon_02096ddd5cbe492b7072b26a1a22d048 = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0",
+                "icon": "info-sign",
+                "iconColor": "white",
+                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "prefix": "glyphicon"
+            });
+            marker_e19b89c834a87cbd3dcb46165a96e3e3.setIcon(icon_02096ddd5cbe492b7072b26a1a22d048);
             
-        
-
-        marker_e19b89c834a87cbd3dcb46165a96e3e3.bindPopup(popup_e9109ce9f2a1abd3ab187661c44b4b69)
-        ;
-
-        
-    
-    
-            marker_e19b89c834a87cbd3dcb46165a96e3e3.bindTooltip(
-                `<div>
-                     Kolkata, India
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_e19b89c834a87cbd3dcb46165a96e3e3.setIcon(icon_02096ddd5cbe492b7072b26a1a22d048);
+            var popup_e9109ce9f2a1abd3ab187661c44b4b69 = L.popup({"maxWidth": "100%"});
+            var html_be566ae405aa637aa9353c9827bf6b82 = $(`<div id="html_be566ae405aa637aa9353c9827bf6b82" style="width: 100.0%; height: 100.0%;">Travels in my Gap Year (2020) 💼</div>`)[0];
+            popup_e9109ce9f2a1abd3ab187661c44b4b69.setContent(html_be566ae405aa637aa9353c9827bf6b82);
+            marker_e19b89c834a87cbd3dcb46165a96e3e3.bindPopup(popup_e9109ce9f2a1abd3ab187661c44b4b69);
             
-    
+            marker_e19b89c834a87cbd3dcb46165a96e3e3.bindTooltip(`<div>Kolkata, India</div>`, {"sticky": true});
+
+            // --- Marker 3: Potsdam ---
             var marker_728fea22d70c52b3126d9d88b2542789 = L.marker(
-                [52.391842, 13.063561],
-                {
-}
+                [52.391842, 13.063561], {}
             ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var icon_a2863e89a0c759779b5cd0ece7f2bcf7 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_de8b9fa5f7ba4633cb8f36c1fc773acb = L.popup({
-  "maxWidth": "100%",
-});
-
-        
             
-                var html_5a500fd70259110dd46e45ca66c7dd00 = $(`<div id="html_5a500fd70259110dd46e45ca66c7dd00" style="width: 100.0%; height: 100.0%;">B.Sc. Business Adminstration & Sociology (2020-2024) 🎓</div>`)[0];
-                popup_de8b9fa5f7ba4633cb8f36c1fc773acb.setContent(html_5a500fd70259110dd46e45ca66c7dd00);
+            var icon_a2863e89a0c759779b5cd0ece7f2bcf7 = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0",
+                "icon": "info-sign",
+                "iconColor": "white",
+                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "prefix": "glyphicon"
+            });
+            marker_728fea22d70c52b3126d9d88b2542789.setIcon(icon_a2863e89a0c759779b5cd0ece7f2bcf7);
             
-        
-
-        marker_728fea22d70c52b3126d9d88b2542789.bindPopup(popup_de8b9fa5f7ba4633cb8f36c1fc773acb)
-        ;
-
-        
-    
-    
-            marker_728fea22d70c52b3126d9d88b2542789.bindTooltip(
-                `<div>
-                     Potsdam, Germany
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_728fea22d70c52b3126d9d88b2542789.setIcon(icon_a2863e89a0c759779b5cd0ece7f2bcf7);
+            var popup_de8b9fa5f7ba4633cb8f36c1fc773acb = L.popup({"maxWidth": "100%"});
+            var html_5a500fd70259110dd46e45ca66c7dd00 = $(`<div id="html_5a500fd70259110dd46e45ca66c7dd00" style="width: 100.0%; height: 100.0%;">B.Sc. Business Adminstration & Sociology (2020-2024) 🎓</div>`)[0];
+            popup_de8b9fa5f7ba4633cb8f36c1fc773acb.setContent(html_5a500fd70259110dd46e45ca66c7dd00);
+            marker_728fea22d70c52b3126d9d88b2542789.bindPopup(popup_de8b9fa5f7ba4633cb8f36c1fc773acb);
             
-    
+            marker_728fea22d70c52b3126d9d88b2542789.bindTooltip(`<div>Potsdam, Germany</div>`, {"sticky": true});
+
+            // --- Marker 4: Ghent ---
             var marker_7e911c1d6fd83aada1c06d88931427e3 = L.marker(
-                [51.0538286, 3.7250121],
-                {
-}
+                [51.0538286, 3.7250121], {}
             ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var icon_5b3ffba1e7d43205009291bc768ea5b4 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_a21c0869f6cacd70eff204417eaac6d6 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
             
-                var html_1de4c615ea5a87d091c1abdb9af4c100 = $(`<div id="html_1de4c615ea5a87d091c1abdb9af4c100" style="width: 100.0%; height: 100.0%;">Bachelor Semester abroad (2022-2023) 🧠</div>`)[0];
-                popup_a21c0869f6cacd70eff204417eaac6d6.setContent(html_1de4c615ea5a87d091c1abdb9af4c100);
+            var icon_5b3ffba1e7d43205009291bc768ea5b4 = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0",
+                "icon": "info-sign",
+                "iconColor": "white",
+                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "prefix": "glyphicon"
+            });
+            marker_7e911c1d6fd83aada1c06d88931427e3.setIcon(icon_5b3ffba1e7d43205009291bc768ea5b4);
             
-        
-
-        marker_7e911c1d6fd83aada1c06d88931427e3.bindPopup(popup_a21c0869f6cacd70eff204417eaac6d6)
-        ;
-
-        
-    
-    
-            marker_7e911c1d6fd83aada1c06d88931427e3.bindTooltip(
-                `<div>
-                     Ghent, Belgium
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_7e911c1d6fd83aada1c06d88931427e3.setIcon(icon_5b3ffba1e7d43205009291bc768ea5b4);
+            var popup_a21c0869f6cacd70eff204417eaac6d6 = L.popup({"maxWidth": "100%"});
+            var html_1de4c615ea5a87d091c1abdb9af4c100 = $(`<div id="html_1de4c615ea5a87d091c1abdb9af4c100" style="width: 100.0%; height: 100.0%;">Bachelor Semester abroad (2022-2023) 🧠</div>`)[0];
+            popup_a21c0869f6cacd70eff204417eaac6d6.setContent(html_1de4c615ea5a87d091c1abdb9af4c100);
+            marker_7e911c1d6fd83aada1c06d88931427e3.bindPopup(popup_a21c0869f6cacd70eff204417eaac6d6);
             
-    
+            marker_7e911c1d6fd83aada1c06d88931427e3.bindTooltip(`<div>Ghent, Belgium</div>`, {"sticky": true});
+
+            // --- Marker 5: Berlin ---
             var marker_926c4105cdc0f47d4f72dc6d04ac906f = L.marker(
-                [52.52, 13.405],
-                {
-}
+                [52.52, 13.405], {}
             ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var icon_06a0ec54bad86a7c85026c3a52c7d3f3 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_53664c8084d234e58cc1b86a54f101d0 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
             
-                var html_6c79e46142fa0373287695724cfad5d5 = $(`<div id="html_6c79e46142fa0373287695724cfad5d5" style="width: 100.0%; height: 100.0%;">Business Ananlyst IT-Consulting (2023-now) 💻</div>`)[0];
-                popup_53664c8084d234e58cc1b86a54f101d0.setContent(html_6c79e46142fa0373287695724cfad5d5);
+            var icon_06a0ec54bad86a7c85026c3a52c7d3f3 = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0",
+                "icon": "info-sign",
+                "iconColor": "white",
+                "markerColor": "green", // GEÄNDERT: von blue zu green
+                "prefix": "glyphicon"
+            });
+            marker_926c4105cdc0f47d4f72dc6d04ac906f.setIcon(icon_06a0ec54bad86a7c85026c3a52c7d3f3);
             
-        
-
-        marker_926c4105cdc0f47d4f72dc6d04ac906f.bindPopup(popup_53664c8084d234e58cc1b86a54f101d0)
-        ;
-
-        
-    
-    
-            marker_926c4105cdc0f47d4f72dc6d04ac906f.bindTooltip(
-                `<div>
-                     Berlin, Germany
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_926c4105cdc0f47d4f72dc6d04ac906f.setIcon(icon_06a0ec54bad86a7c85026c3a52c7d3f3);
+            var popup_53664c8084d234e58cc1b86a54f101d0 = L.popup({"maxWidth": "100%"});
+            var html_6c79e46142fa0373287695724cfad5d5 = $(`<div id="html_6c79e46142fa0373287695724cfad5d5" style="width: 100.0%; height: 100.0%;">M.Sc. & Work (Since 2023) 🏫</div>`)[0];
+            popup_53664c8084d234e58cc1b86a54f101d0.setContent(html_6c79e46142fa0373287695724cfad5d5);
+            marker_926c4105cdc0f47d4f72dc6d04ac906f.bindPopup(popup_53664c8084d234e58cc1b86a54f101d0);
             
-    
-            var marker_ab6056fa2e0124020252a92e54b1be93 = L.marker(
-                [52.52, 13.405],
-                {
-}
-            ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var icon_1ff6a226367649c4f6abf15250d10ee3 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_49e519f6a14f98c46a3683583763e030 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_5828f6d2b6ce4aeb936b49f12132d67e = $(`<div id="html_5828f6d2b6ce4aeb936b49f12132d67e" style="width: 100.0%; height: 100.0%;">M.Sc. BI & Pr.Mng. @HWR (2025-Now) 🎓</div>`)[0];
-                popup_49e519f6a14f98c46a3683583763e030.setContent(html_5828f6d2b6ce4aeb936b49f12132d67e);
-            
-        
-
-        marker_ab6056fa2e0124020252a92e54b1be93.bindPopup(popup_49e519f6a14f98c46a3683583763e030)
-        ;
-
-        
-    
-    
-            marker_ab6056fa2e0124020252a92e54b1be93.bindTooltip(
-                `<div>
-                     Berlin, Germany
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_ab6056fa2e0124020252a92e54b1be93.setIcon(icon_1ff6a226367649c4f6abf15250d10ee3);
-            
-    
-            var poly_line_2ab52d88c1d0f7ac552d59d45db34afa = L.polyline(
-                [[49.488888, 8.469167], [49.62895974782855, 10.13603406074491], [49.74489994976781, 11.811658436028493], [49.83649567155817, 13.494445134959825], [49.90357696812858, 15.182746549009515], [49.946018403005695, 16.87487400472473], [49.96374018485296, 18.56911005504642], [49.95670889711139, 20.263721295777724], [49.924937805118454, 21.95697147598043], [49.86848673408204, 23.647134661009222], [49.787461520544475, 25.332508205081602], [49.682013049126176, 27.011425296824527], [49.55233589504089, 28.6822668557776], [49.39866660079963, 30.343472579578894], [49.2212816223903, 31.993550969354715], [49.02049498581675, 33.63108819324527], [48.79665569905854, 35.25475568341458], [48.55014496719755, 36.863316398650106], [48.28137325965206, 38.455629721139566], [47.99077727823337, 40.03065499075118], [47.67881687321822, 41.58745371189513], [47.345971951988695, 43.125190495838794], [46.99273942122757, 44.64313282451821], [46.61963019939328, 46.140649740067275], [46.227166331453994, 47.61720957738883], [45.815878232848554, 49.07237686528233], [45.38630208455516, 50.50580852528047], [44.938977396158315, 51.917249496942894], [44.47444474904804, 53.30652791451414], [43.993243727473235, 54.673549953226896], [43.49591104118154, 56.01829445478059], [42.98297883986021, 57.340807431278584], [42.4549732165728, 58.64119653573989], [41.91241289486503, 59.919625575721696], [41.35580809217768, 61.17630913502058], [40.7856595506256, 62.41150735720805], [40.20245772504087, 63.62552093416146], [39.60668211739414, 64.81868633296408], [38.99880074624987, 65.99137128568891], [38.37926973973529, 67.14397055871582], [37.74853304055875, 68.27690201137993], [37.1070222118602, 69.3906029478928], [36.455156333072026, 70.48552676157036], [35.793341975477446, 71.5621398663814], [35.121973247743696, 72.62091890761553], [34.4414319023516, 73.66234824097882], [33.75208749451742, 74.68691766757252], [33.05429758589009, 75.69512041090576], [32.34840798598991, 76.6874513212619], [31.63475302502199, 77.66440529229658], [30.913655852341797, 78.62647587463003], [30.185428755460123, 79.57415407134143], [29.450373495052354, 80.50792730062267], [28.708781651972288, 81.42827851135965], [27.960934982768585, 82.33568543803364], [27.207105780658043, 83.23061998204372], [26.447557239325995, 84.11354770731361], [25.6825438173023, 84.98492743883533], [24.91231160100228, 85.84521095360448], [24.13709866482727, 86.69484275419711], [23.35713542699346, 87.53425991601759], [22.572645, 88.363892]],
-                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var poly_line_f5ef366a643ce2a2791ba011ed72847c = L.polyline(
-                [[22.572645, 88.363892], [23.35569250143211, 87.61536512092529], [24.135040614195624, 86.85802199705724], [24.910507508789227, 86.09146595524678], [25.681905218742077, 85.31529155678741], [26.449039319702557, 84.52908445439951], [27.211708598927313, 83.73242128655242], [27.969704715440624, 82.92486961499164], [28.72281185127225, 82.10598791201694], [29.470806354342333, 81.27532560479058], [30.213456373746425, 80.4324231847392], [30.95052148840562, 79.5768123909505], [31.681752330288194, 78.70801647734953], [32.406890203683965, 77.82555057436758], [33.12566670232236, 76.92892215677763], [33.83780332647472, 76.01763163035649], [34.54301110257092, 75.09117305102714], [35.24099020829598, 74.1490349911176], [35.931429606611694, 73.19070156832048], [36.61400669267762, 72.21565365381755], [37.28838695822211, 71.22337027681054], [37.95422367853852, 70.21333024332593], [38.6111576279537, 69.18501398758447], [39.25881683032867, 68.13790567438164], [39.89681635190256, 67.0714955707402], [40.52475814456978, 65.98528270448831], [41.142230948476175, 64.87877782629272], [41.748810263616654, 63.7515066899353], [42.34405840089604, 62.60301366315605], [42.92752462385026, 61.43286567808099], [43.498745392889234, 60.2406565259991], [44.05724472447839, 59.02601149593728], [44.60253467808455, 57.78859235001099], [45.13411598392489, 56.52810262082125], [45.651478824526144, 55.24429320717997], [46.15410378276826, 53.936968234167196], [46.641462968394286, 52.605991132006295], [47.113021333859514, 51.25129087560044], [47.5682381888087, 49.87286831300717], [48.00656892036241, 48.470802496930375], [48.427466923720246, 47.04525691887789], [48.83038574432276, 45.59648553148023], [49.21478142895154, 44.12483843120741], [49.580115078703756, 42.6307670620796], [49.92585559180611, 41.11482879174524], [50.25148257881459, 39.577690705349745], [50.55648942700484, 38.02013246080482], [50.8403864848531, 36.44304805220721], [51.10270433163768, 34.84744633695399], [51.34299709158879, 33.23445019708259], [51.56084574693503, 31.605294226801426], [51.75586139991026, 29.961320866018497], [51.92768843056355, 28.303974933502246], [52.076007495309746, 26.634796552293807], [52.20053831078353, 24.955412502898568], [52.30104216887703, 23.26752608501586], [52.37732413193656, 21.572905614200735], [52.42923486197289, 19.873371723781844], [52.456672044310835, 18.170783682401392], [52.459581374184474, 16.467024971596302], [52.43795708410069, 14.763988394046237], [52.391842, 13.063561]],
-                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var poly_line_b5e6393805699d900cae68041eec15e7 = L.polyline(
-                [[52.391842, 13.063561], [52.37599311387178, 12.906355768133466], [52.35993525398751, 12.749263790604767], [52.3436686908682, 12.592286400159246], [52.32719369808409, 12.435424922033935], [52.31051055223295, 12.27868067389062], [52.293619532918264, 12.122054965750115], [52.27652092272732, 11.96554909992766], [52.25921500720897, 11.80916437096948], [52.241702074851425, 11.65290206559055], [52.22398241705969, 11.496763462613501], [52.20605632813302, 11.340749832908742], [52.187924105242146, 11.18486243933573], [52.1695860484063, 11.029102536685452], [52.15104246047024, 10.873471371624069], [52.132293647080964, 10.717970182637815], [52.11333991666446, 10.562600199978991], [52.09418158040223, 10.407362645613269], [52.07481895220763, 10.252258733168098], [52.05525234870224, 10.097289667882379], [52.03548208919202, 9.942456646557304], [52.015508495643324, 9.787760857508406], [51.99533189265885, 9.63320348051883], [51.974952607453524, 9.478785686793783], [51.95437096983019, 9.324508638916202], [51.933587312155225, 9.17037349080363], [51.91260196933414, 9.016381387666273], [51.89141527878695, 8.86253346596629], [51.870027580423574, 8.70883085337826], [51.84843921661911, 8.555274668750878], [51.826650532188985, 8.401866022069783], [51.804661874364115, 8.248606014421684], [51.782473592765925, 8.095495737959602], [51.76008603938132, 7.942536275869322], [51.73749956853763, 7.789728702337051], [51.71471453687736, 7.637074082518259], [51.69173130333313, 7.48457347250768], [51.66855022910224, 7.332227919310521], [51.64517167762149, 7.180038460814837], [51.62159601454176, 7.028006125765072], [51.59782360770259, 6.87613193373678], [51.57385482710678, 6.724416895112511], [51.54969004489486, 6.572862011058816], [51.52532963531966, 6.421468273504505], [51.50077397472064, 6.270236665119909], [51.47602344149848, 6.119168159297435], [51.45107841608935, 5.968263720133154], [51.42593928093942, 5.817524302409579], [51.40060642047916, 5.666950851579526], [51.37508022109778, 5.516544303751157], [51.34936107111752, 5.366305585674067], [51.323449360768095, 5.216235614726526], [51.29734548216095, 5.06633529890382], [51.271049829263745, 4.916605536807653], [51.24456279787462, 4.767047217636701], [51.21788478559662, 4.617661221178141], [51.191016191812075, 4.468448417800369], [51.16395741765702, 4.319409668446724], [51.1367088659956, 4.1705458246302545], [51.10927094139453, 4.021857728429552], [51.081644050097566, 3.873346212485682], [51.0538286, 3.7250121]],
-                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var poly_line_b4d177eed88a6d406ce85a93b6655605 = L.polyline(
-                [[51.0538286, 3.7250121], [51.08416888815424, 3.878302970710433], [51.11430777099015, 4.031793857299952], [51.14424477316078, 4.185483899475543], [51.173979421055094, 4.339372225717573], [51.203511242829336, 4.493457953273343], [51.232839768438204, 4.647740188151876], [51.26196452966617, 4.802218025119977], [51.29088506015891, 4.956890547699615], [51.31960089545461, 5.111756828166524], [51.348111573015586, 5.266815927550209], [51.376416632259755, 5.422066895635207], [51.40451561459215, 5.577508770963677], [51.432408063436554, 5.733140580839377], [51.46009352426716, 5.8889613413329815], [51.48757154464019, 6.044970057288728], [51.51484167422558, 6.2011657223324725], [51.54190346483872, 6.3575473188811396], [51.56875647047215, 6.51411381815356], [51.59540024732728, 6.670864180182699], [51.62183435384612, 6.827797353829314], [51.64805835074308, 6.984912276797062], [51.67407180103663, 7.142207875648987], [51.69987427008106, 7.299683065825521], [51.72546532559821, 7.457336751663894], [51.750844537709135, 7.6151678264189835], [51.77601147896581, 7.773175172285742], [51.800965724382806, 7.931357660422937], [51.82570685146884, 8.089714150978535], [51.85023444025843, 8.24824349311649], [51.874548073343426, 8.406944525045038], [51.89864733590447, 8.565816074046538], [51.9225318157425, 8.72485695650878], [51.94620110331012, 8.884065977957846], [51.969654791742954, 9.043441933092478], [51.992892476890866, 9.20298360581996], [52.01591375734923, 9.36268976929361], [52.038718234490005, 9.522559185951685], [52.06130551249281, 9.68259060755794], [52.08367519837587, 9.842782775243696], [52.10582690202689, 10.003134419551436], [52.127760236233826, 10.163644260480005], [52.14947481671554, 10.324311007531307], [52.170970262152416, 10.48513335975862], [52.192246194216786, 10.646110005816425], [52.21330223760326, 10.807239624011826], [52.23413802005895, 10.968520882357527], [52.25475317241361, 11.129952438626376], [52.275147328609506, 11.291532940407464], [52.29532012573133, 11.453261025163792], [52.315271204035845, 11.615135320291532], [52.33500020698137, 11.777154443180809], [52.35450678125725, 11.939317001278052], [52.373790576813015, 12.101621592149971], [52.39285124688744, 12.264066803548985], [52.4116884480375, 12.426651213480305], [52.430301840167, 12.589373390270502], [52.44869108655513, 12.752231892637695], [52.46685585388489, 12.915225269763205], [52.484795812271166, 13.078352061364818], [52.50251063528873, 13.24161079777156], [52.52, 13.405]],
-                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            var poly_line_6ed975b827c3ff0260d7116c1cbd7ba9 = L.polyline(
-                [[52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405], [52.52, 13.405]],
-                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-            tile_layer_35e9ba0ffccdacfc1e338008530fb772.addTo(map_b98280c53fd42d586a09191842c709cb);
-        
-    
-                marker_2de7687c5cbe4d51e54460c62ef58f72.setIcon(icon_29e0b48c57862dee00ef782fa39276b2);
-            
-    
-                marker_e19b89c834a87cbd3dcb46165a96e3e3.setIcon(icon_02096ddd5cbe492b7072b26a1a22d048);
-            
-    
-                marker_728fea22d70c52b3126d9d88b2542789.setIcon(icon_a2863e89a0c759779b5cd0ece7f2bcf7);
-            
-    
-                marker_7e911c1d6fd83aada1c06d88931427e3.setIcon(icon_5b3ffba1e7d43205009291bc768ea5b4);
-            
-    
-                marker_926c4105cdc0f47d4f72dc6d04ac906f.setIcon(icon_06a0ec54bad86a7c85026c3a52c7d3f3);
-            
-    
-                marker_ab6056fa2e0124020252a92e54b1be93.setIcon(icon_1ff6a226367649c4f6abf15250d10ee3);
-            
-</script>
+            marker_926c4105cdc0f47d4f72dc6d04ac906f.bindTooltip(`<div>Berlin, Germany</div>`, {"sticky": true});
+        })();
+    </script>
+    </body>
 </html>
