@@ -1,0 +1,36 @@
+# 1. Pakete importieren
+import pandas as pd
+import numpy as np
+
+# 2. Gapminder-Daten laden
+url = "https://drive.google.com/uc?id=1oIvCdN15UEwt4dCyjkArekHnTrivN43v"
+gapminder = pd.read_csv(url, index_col=0)
+
+# 3.  Frage 1: gdpPercap in Myanmar im Jahr 1992
+myanmar_1992_gdp = gapminder[(gapminder['country'] == 'Myanmar') & (gapminder['year'] == 1992)]['gdpPercap'].values[0]
+print("1 gdpPercap in Myanmar 1992:", myanmar_1992_gdp)
+
+# 4. Frage 2: Durchschnittliche Bevölkerung in Europa im Jahr 2007
+europe_2007_pop_avg = gapminder[(gapminder['continent'] == 'Europe') & (gapminder['year'] == 2007)]['pop'].mean()
+print("2 Durchschnittliche Bevölkerung in Europa 2007:", europe_2007_pop_avg)
+
+# 5. Frage 3: Land mit niedrigster Lebenserwartung
+min_life_expectancy = gapminder['lifeExp'].min()
+country_min_life = gapminder[gapminder['lifeExp'] == min_life_expectancy]['country'].values[0]
+print("3 Land mit niedrigster Lebenserwartung:", country_min_life)
+
+# 6. Frage 4: Jahr des Minimums der Lebenserwartung
+year_min_life = gapminder[gapminder['lifeExp'] == min_life_expectancy]['year'].values[0]
+print("4 Jahr des Minimums der Lebenserwartung:", year_min_life)
+
+# 7. Frage 5: Bevölkerungsbereich für Länder von Myanmar bis Sao Tome and Principe
+# Länder alphabetisch sortieren
+countries_sorted = sorted(gapminder['country'].unique())
+# Subset der Länder von Myanmar bis Sao Tome and Principe
+subset_countries = [c for c in countries_sorted if 'Myanmar' <= c <= 'Sao Tome and Principe']
+# Max und Min Population in dieser Range über alle Jahre
+pop_max = gapminder[gapminder['country'].isin(subset_countries)]['pop'].max()
+pop_min = gapminder[gapminder['country'].isin(subset_countries)]['pop'].min()
+pop_range = pop_max - pop_min
+print("5 Bevölkerungsbereich (Max - Min) Myanmar bis Sao Tome and Principe:", pop_range)
+
