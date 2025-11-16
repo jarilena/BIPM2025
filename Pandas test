@@ -1,37 +1,52 @@
-# 1. Pakete importieren
 import pandas as pd
 import numpy as np
+# plotly.express enthält den Gapminder-Datensatz und ist der stabilste Weg, ihn abzurufen
+import plotly.express as px
 
-# 2. Gapminder-Daten laden
-pip install gapminder
-from gapminder import gapminder
-# gapminder ist jetzt ein Pandas DataFrame
+# 1. Gapminder-Daten laden (über plotly.express.data.gapminder())
+# Dies ist die stabilste Methode, wenn der direkte "gapminder"-Import fehlschlägt.
+try:
+    gapminder = px.data.gapminder()
+    print("Daten erfolgreich über plotly.express geladen.")
+except Exception as e:
+    print(f"Fehler beim Laden der Daten: {e}")
+    # Fallback zur manuellen Methode (falls das Paket doch nicht installiert ist)
+    print("Bitte installieren Sie plotly: pip install plotly")
+    exit()
 
-# 3.  Frage 1: gdpPercap in Myanmar im Jahr 1992
-myanmar_1992_gdp = gapminder[(gapminder['country'] == 'Myanmar') & (gapminder['year'] == 1992)]['gdpPercap'].values[0]
-print("1 gdpPercap in Myanmar 1992:", myanmar_1992_gdp)
+# --- Berechnungen ---
 
-# 4. Frage 2: Durchschnittliche Bevölkerung in Europa im Jahr 2007
+# 2. Frage 1: gdpPercap in Myanmar im Jahr 1992
+# Hinweis: Myanmar hat in den Daten nur Einträge bis 2007.
+gdp_myanmar_1992 = gapminder[(gapminder['country'] == 'Myanmar') & (gapminder['year'] == 1992)]['gdpPercap'].values[0]
+print("\n1. gdpPercap in Myanmar 1992:", gdp_myanmar_1992)
+
+# 3. Frage 2: Durchschnittliche Bevölkerung in Europa im Jahr 2007
 europe_2007_pop_avg = gapminder[(gapminder['continent'] == 'Europe') & (gapminder['year'] == 2007)]['pop'].mean()
-print("2 Durchschnittliche Bevölkerung in Europa 2007:", europe_2007_pop_avg)
+print("2. Durchschnittliche Bevölkerung in Europa 2007:", f"{europe_2007_pop_avg:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')) # Formatierung für bessere Lesbarkeit
 
-# 5. Frage 3: Land mit niedrigster Lebenserwartung
-min_life_expectancy = gapminder['lifeExp'].min()
-country_min_life = gapminder[gapminder['lifeExp'] == min_life_expectancy]['country'].values[0]
-print("3 Land mit niedrigster Lebenserwartung:", country_min_life)
+# 4. Frage 3: Land mit niedrigster Lebenserwartung
+min_life_exp_row = gapminder.loc[gapminder['lifeExp'].idxmin()]
+country_min_life = min_life_exp_row['country']
+print("3. Land mit niedrigster Lebenserwartung:", country_min_life)
 
-# 6. Frage 4: Jahr des Minimums der Lebenserwartung
-year_min_life = gapminder[gapminder['lifeExp'] == min_life_expectancy]['year'].values[0]
-print("4 Jahr des Minimums der Lebenserwartung:", year_min_life)
+# 5. Frage 4: Jahr des Minimums der Lebenserwartung
+year_min_life = min_life_exp_row['year']
+print("4. Jahr des Minimums der Lebenserwartung:", year_min_life)
 
-# 7. Frage 5: Bevölkerungsbereich für Länder von Myanmar bis Sao Tome and Principe
+# 6. Frage 5: Bevölkerungsbereich für Länder von Myanmar bis Sao Tome and Principe (inklusive)
 # Länder alphabetisch sortieren
 countries_sorted = sorted(gapminder['country'].unique())
-# Subset der Länder von Myanmar bis Sao Tome and Principe
-subset_countries = [c for c in countries_sorted if 'Myanmar' <= c <= 'Sao Tome and Principe']
-# Max und Min Population in dieser Range über alle Jahre
-pop_max = gapminder[gapminder['country'].isin(subset_countries)]['pop'].max()
-pop_min = gapminder[gapminder['country'].isin(subset_countries)]['pop'].min()
-pop_range = pop_max - pop_min
-print("5 Bevölkerungsbereich (Max - Min) Myanmar bis Sao Tome and Principe:", pop_range)
+# Subset der Länder von Myanmar bis Sao Tome and Principe (inkl. beider Grenzen)
+start_country = 'Myanmar'
+end_country = 'Sao Tome and Principe'
+start_index = countries_sorted.index(start_country)
+end_index = countries_sorted.index(end_country)
+subset_countries = countries_sorted[start_index : end_index + 1]
 
+# Max und Min Population in dieser Range über alle Jahre
+df_subset = gapminder[gapminder['country'].isin(subset_countries)]
+pop_max = df_subset['pop'].max()
+pop_min = df_subset['pop'].min()
+pop_range = pop_max - pop_min
+print("5. Bevölkerungsbereich (Max - Min) Myanmar bis Sao Tome and Principe:", f"{pop_range:,.0f}".replace(',', 'X').replace('.', ',').replace('X', '.'))
